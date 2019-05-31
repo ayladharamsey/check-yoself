@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Organized by page order*/
+
+nav {
+	background-color: #1F1F3D;
+	font-weight: 800;
+	font-size: 25px;
+	color: #FFFFFF;
+	height: 10%;
+}
+
+span{
+	color: #FFC30C;
+}

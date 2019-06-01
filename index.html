@@ -3,14 +3,14 @@
 <head>
 	<meta charset="utf-8" />
 	<title>CHECK YO' SELF</title>
-	<meta name="description" content="check_yo_self-mod_1-final_project"/>
+	<meta name="description" content="check-yoself-mod-1-final_project"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="reset.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet">
 </head>
 <body>
-	<nav class="nav">
+	<nav>
 		<h1 class="nav-title">CHECK <span class="nav-title-mid">YO'</span> SELF</h1>
 		<form class="nav-form">
           <img class="nav-form-search-button" src="images/search.svg">
@@ -22,35 +22,22 @@
 			<form class="sidebar-form">
 				<label for="title-input" class="sidebar-form-task-title">Task Title</label>
 				<input id="title-input" type="text" name="title-input" class="sidebar-form-input global-input">
+				<ul id="list-items" class="sidebar-form-list-items">
+           		</ul>
 				<label for="task-input" class="sidebar-form-task-item">Task Item</label>
 					<div class="sidebar-form-item-container">
-            			<input id="task-input" name="task-input" type="text" class="sidebar-form-item-input global-input">
-              			<input type="button" class="sidebar-form-item-button"></input>
+            			<input id="task-input" name="task-input" type="text" class="sidebar-form-input global-input">
+              			<img class="sidebar-form-item-button" src="images/add-plus-svgrepo-com.svg">
             		</div>
-            	<input type="button" value="Make Task List" class="sidebar-form-make-task-button global-button"></input>
-           		<input type="button" value="Clear All" class="sidebar-form-clear-all-button global-button"></input>
+            	<input type="button" value="Make Task List" class="sidebar-form-make-task-button global-button">
+            	</input>
+           		<input type="button" value="Clear All" class="sidebar-form-clear-all-button global-button">
+           		</input>
           </form>
           <button class="sidebar-form-urgency-button global-button" data-urgency="false">Filter by Urgency</button>
         </aside>
 		<section class="card-area">
-			 <p class="card-area-task-prompt">Please enter a task!!!</p>
-			<!-- <article class="article">
-				<header class="article-header">
-					<h2>Task Title</h2>
-				</header>
-				<section class="task-list-area">
-					<input type="radio" name="task-check" class="radio-btn">
-					<p>Task #1</p>
-					<input type="radio" name="task-check" class="radio-btn">
-					<p>Task #1</p>
-					<input type="radio" name="task-check" class="radio-btn">
-					<p>Task #1</p>
-				<footer class="footer">
-					<button class="urgent"></button>
-					<button class="delete"></button>
-				</footer>
-				</section>
-			</article> -->
+			<p class="card-area-task-prompt">Please enter a task!!!</p>
 		</section>
 	</main>	
 </body>

@@ -1,0 +1,16 @@
+Pseduocoding 
+
+1.User types text into tast-title input 
+2. User types text into task-item and clicks add button
+3. task items are added to the dom underneath the  task-title which can be deleted at any time
+4. You can clear all items from the list by clicking the clear list btn
+5. User clicks Make Task List button and Task & Items are saved to local storage 
+6. After saved to local storage, they are retrieved from local storage and appended on the dom
+7. New Cards persist upon reload
+8. New Cards may be marked as urgent
+9. Task-items can be marked complete and their status should be updated to local storage
+10. New Cards can be deleted, which removes the item from the dom as well as local storage
+
+functions i need to write 
+1. a function that acquires the index number of the id i am trying to locate
+

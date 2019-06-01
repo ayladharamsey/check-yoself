@@ -23,7 +23,7 @@ html {
 	width: 90%;
 }
 
-.global-button {
+.global-btn {
 	border-style: none;
     background-color: #1f1f3d;
     color: #FFFFFF;
@@ -60,7 +60,7 @@ nav {
     margin: 2%;
 }
 
-.nav-form-search-button {
+.nav-form-search-btn {
     background-color: #C8D3D9;
 	border-bottom-left-radius: 3px;
 	border-top-left-radius: 3px;
@@ -130,12 +130,14 @@ label {
 	margin: 10px;
 }
 
-.sidebar-form-input {
+.sidebar-form-input-title,
+.sidebar-form-input-item {
 	margin: 10px;
 
 }
-.sidebar-form-item-button {
+.sidebar-form-item-btn {
 	background-color: #1f1f3d;
+	background-image: url("images/add-plus-svgrepo-com.svg");
 	border-bottom-right-radius: 3px;
 	border-top-right-radius: 3px;
 	border: 2px solid #1f1f3d;
@@ -145,13 +147,15 @@ label {
 	padding: 3px;
 	position: absolute;
 	width: 40px;
+
+
 }
 
-.sidebar-form-clear-all-button {
+.sidebar-form-clear-all-btn {
 	margin-bottom: 30px;
 }
 
-.sidebar-form-urgency-button {
+.sidebar-form-urgency-btn {
 	margin-top: 30px;
 }
 

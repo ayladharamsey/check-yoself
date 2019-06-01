@@ -11,6 +11,7 @@ Pseduocoding
 9. Task-items can be marked complete and their status should be updated to local storage
 10. New Cards can be deleted, which removes the item from the dom as well as local storage
 
-functions i need to write 
-1. a function that acquires the index number of the id i am trying to locate
+
+
+
 

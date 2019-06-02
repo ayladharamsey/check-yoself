@@ -1,3 +1,7 @@
+// document.addEventListener("DOMContentLoaded", function(event) {
+//     // Your code to run since DOM is loaded and ready
+// });
+
 var cardArea = document.querySelector('.card-area')
 var newCard = document.querySelector('.card-area-new-card')
 var makeTaskListBtn = document.querySelector('.sidebar-form-make-task-btn')
@@ -9,10 +13,12 @@ var taskLists = [];
 var todoCards = JSON.parse(localStorage.getItem("todos")) || [];
 var clearAllBtn = document.querySelector('.sidebar-form-clear-all-btn')
 
-makeTaskListBtn.addEventListener('onclick', makeToDoList)
-addToDoListItemBtn.addEventListener('onclick', addItemsToTaskListArray)
+
 titleInput.addEventListener('keyup', enableBtns)
 taskListItemsInput.addEventListener('keyup', enableBtns)
+makeTaskListBtn.addEventListener('click', makeToDoList)
+addToDoListItemBtn.addEventListener('click', addItemsToTaskListArray)
+
 
 
 function enableBtns(e){ // works
@@ -39,6 +45,13 @@ function findIndex(card){
 
 //Functions to for sidebar taskLists -----------------------------
 
+function addItemsToTaskListArray(){	
+	//Does this need to be on the todo-list.js?
+	item = new Items (taskListItemsInput.value);
+	taskLists.push(item)
+	addToDoListItemsToDom(item);
+};
+
 function addToDoListItemsToDom(item){
 	var newTaskListItem = `
 		<li class="task-todo-list item" data-id ="${item.id}> 
@@ -52,6 +65,12 @@ function addToDoListItemsToDom(item){
 
 
 //Functions for turning tasklists into TodoLists ---------------------------
+
+function makeToDoList(){
+	var newToDoListCard = new ToDoList(titleInput.value, taskLists);
+	todoCards.push(newToDoListCard);
+	appendCard(newToDoListCard);
+};
 
 function appendCard (newTodoCard){
 	var card = `
@@ -88,9 +107,9 @@ function appendTaskListToCard(newTodoCard){
 	var taskIteration = '';
 	for (var i = 0; i , taskLists.length; i++){
 		taskIteration++
-		`<li class="populate-item item" data-id ="${item.id}> 
-			<img class="populate-item-delete-btn item" src="images/delete.svg" alt="Delete task from temporary sidebar"/>
-			<p class = "populate-items-body item">'${item.body}</p>
+		`<li class="populate-item item" data-id =${item.id}> 
+			<img class="populate-item-delete-btn item" src="images/delete.svg" alt="Delete task from draft list in sidebar"/>
+			<p class = "populate-items-body item">${item.body}</p>
 		</li>`
 	} return taskIteration;
 };
@@ -101,52 +120,35 @@ function clearInputFields(){
         taskListItemsInput.value = '';
     };
 };
-function addItemsToTaskListArray(e){	
-	console.log('hey1')						 //Does this need to be on the todo-list.js?
-	item = new Items (taskListItemsInput.value);
-	taskList.push(item)
-	addToDoListItemsToDom(item);
-};
-
-
-function makeToDoList(e){
-	console.log('hey2')
-	e.preventDefault();
-	var newToDoListCard = new ToDoList(titleInput.value, taskLists);
-	todoCards.push(newToDoListCard);
-	appendCard(newToDoListCard);
-};
-
-
 
 
 //Masory Grid related functions -------------------------------------------------------
 
-function resizeGridItem(newCard){
-  grid = cardArea[0];
-  rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-  rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
-  rowSpan = Math.ceil((item.querySelector('.body-to-populate').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
-    item.style.gridRowEnd = "span "+rowSpan;
-}
+// function resizeGridItem(newCard){
+//   grid = cardArea[0];
+//   rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+//   rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
+//   rowSpan = Math.ceil((item.querySelector('.body-to-populate').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
+//     item.style.gridRowEnd = "span "+rowSpan;
+// }
 
-function resizeAllGridItems(){
-  for (var i = 0 ; i < taskLists.length; i++){
-    resizeGridItem(newCard[i]);
-  }
-};
+// function resizeAllGridItems(){
+//   for (var i = 0 ; i < taskLists.length; i++){
+//     resizeGridItem(newCard[i]);
+//   }
+// };
 
-var allCards = document.querySelectorAll(".card-area-new-card");
-	for (var i = 0; i < todoCards.length; i++){
-  	imagesLoaded(todoCards[i], resizeInstance);
-	};
+// var allCards = document.querySelectorAll(".card-area-new-card");
+// 	for (var i = 0; i < todoCards.length; i++){
+//   	imagesLoaded(todoCards[i], resizeInstance);
+// 	};
 
-window.onload = resizeAllGridItems();
-window.addEventListener('resize', resizeAllGridItems);
+// window.onload = resizeAllGridItems();
+// window.addEventListener('resize', resizeAllGridItems);
 
 
-function resizeInstance(instance){
-	newCard = instance.elements[0];
-  	resizeGridItem(item);
-};
+// function resizeInstance(instance){
+// 	newCard = instance.elements[0];
+//   	resizeGridItem(item);
+// };
 

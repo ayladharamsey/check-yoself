@@ -2,91 +2,83 @@ var cardArea = document.querySelector('.card-area')
 var newCard = document.querySelector('.card-area-new-card')
 var makeTaskListBtn = document.querySelector('.sidebar-form-make-task-btn')
 var addToDoListItemBtn = document.querySelector('.sidebar-form-item-btn')
-var title = document.querySelector('.sidebar-form-input-title')
-var listItems = document.querySelector('.sidebar-form-input-item')
-var listItemsArea = document.querySelector('.sidebar-form-list-items')
-var temporaryTaskItems = [];
+var titleInput = document.querySelector('.sidebar-form-input-title')
+var taskListItemsInput = document.querySelector('.sidebar-form-input-item')
+var taskListItemsArea = document.querySelector('.sidebar-form-list-items')
+var taskLists = [];
 var todoCards = JSON.parse(localStorage.getItem("todos")) || [];
 
 
-makeTaskListBtn.addEventListener('onclick', makeTaskListBtnHelper)
-addToDoListItemBtn.addEventListener('onclick', addToDoListItemBtnHelper)
-title.addEventListener('keyup', enableBtns)
-listItems.addEventListener('keyup', enableBtns)
+
+
+makeTaskListBtn.addEventListener('onclick', makeToDoList)
+addToDoListItemBtn.addEventListener('onclick', addItemsToTaskListArray)
+titleInput.addEventListener('keyup', enableBtns)
+taskListItemsInput.addEventListener('keyup', enableBtns)
+
+
+function addItemsToTaskListArray(){ //Does this need to be on the todo-list.js?
+	item = new Items (taskListItemsInput.value);
+	taskList.push(item)
+	addToDoListItemsToDom(item);
+};
+
+function makeToDoList(){
+var newToDoListCard = new ToDoList(titleInput.value, taskLists);
+todoCards.push(newToDoListCard);
+appendCard(newToDoListCard);
+};
 
 function enableBtns() {
-    if (title.value === ''){
+    if (titleInput.value === ''){
         makeTaskListBtn.disabled = true;
     } else {
         makeTaskListBtn.disabled = false;
     };
 
-    if (listItems.value === ''){
+    if (taskListItemsInput.value === ''){
         addToDoListItemBtn.disabled = true;
     } else {
         addToDoListItemBtn.disabled = false;
     };
 };
 
-function addToDoListItemBtnHelper(e){
-	e.preventDefault();
-	addItemsToTemporaryArray();
-	
-}
-
-function addToDoListItemToDom(){
-	var newListItem = `
-		<li class="temporary-todo-list item" data-id ="${newListItem.id}> 
-			<img class="temporary-todo-list-delete-btn item" src="images/delete.svg" alt="Delete task from temporary sidebar"/>
-			<p class = "temporary-todo-list-content item">'${newListItem.content}</p>
-		</li>	
-		`
-	listItemsArea.insertAdjacentHTML('beforeend', newListItem);
-	listItems.value = '';
-}
-
-function addItemsToTemporaryArray(){
-	var newTemporaryListItem = new Items(listItems.value);
-	temporaryTaskItems.push(newTemporaryListItem)
-	addToDoListItemToDom(newTemporaryListItem);
-}
-
-function makeTaskListBtnHelper(e){
-	e.preventDefault();
-	makeTaskList();
-	appendCard(todoList);
-	clearInputFields();
-	saveToStorage();
-}
-
-function clearInputFields(){
-	if(makeTaskListBtn.disabled = true){
-        titleInput.value = '';
-        listItems.value = '';
-    };
-};
-
-
-function makeTaskList(){
-var todoList = new ToDoList(Date.now(), title.value, listItems.value, false,);
-todoCards.push(todoList);
-}
-
 function findIndex(card){
 	var cardId = card.dataset.id;
-	return taskItems.find(function(item) {
+	return taskLists.find(function(item) {
     return item.id == cardId;
 });
 
+
+
+//Functions to for sidebar taskLists -----------------------------
+
+
+
+function addToDoListItemsToDom(item){
+	var newTaskListItem = `
+		<li class="task-todo-list item" data-id ="${item.id}> 
+			<img class="task-todo-list-delete-btn item" src="images/delete.svg" alt="Delete task from draft list on sidebar"/>
+			<p class = "task-todo-list-body item">'${item.body}</p>
+		</li>	
+		`
+	taskListItemsArea.insertAdjacentHTML('beforeend', newTaskListItem);
+	taskListItemsInput.value = '';
+}
+
+
+//Functions for turning tasklists into TodoLists ---------------------------
+
 function appendCard (newTodoCard){
 	var card = `
-	<article class="card-area-new-card" data-id=${id}> 
+	<article class="card-area-new-card" data-id=${newTodoCard.id}> 
 		<div class ="content">
 			<header class="new-card-header">
-				<h2 class="new-card-title">Task Title</h2>
+				<h2 class="new-card-title">${newTodoCard.title}</h2>
 			</header>
 			<section class="new-card-items-population-area">
-				<ul class= "items-to-populate">
+				<ul class= "body-to-populate">
+				${appendTaskListToCard(newTodoCard)}
 				</ul>
 				<footer class="new-card-footer">	
 					<div class="new-card-footer-left">
@@ -103,10 +95,28 @@ function appendCard (newTodoCard){
 	</article>
 	`
 	cardArea.insertAdjacentHTML('afterbegin', card)
-	taskItems = [];
+	taskLists = [];
+	clearInputFields();
 }
 
+function appendTaskListToCard(newTodoCard){
+	// for this array of task list items, i need to take each item and append it to the new card
+	var taskIteration = '';
+	for (var i = 0; i , taskLists.length; i++){
+		taskIteration++
+		`<li class="populate-item item" data-id ="${item.id}> 
+			<img class="populate-item-delete-btn item" src="images/delete.svg" alt="Delete task from temporary sidebar"/>
+			<p class = "populate-items-body item">'${item.body}</p>
+		</li>`
+	} return taskIteration;
+}
 
+function clearInputFields(){
+	if(makeTaskListBtn.disabled = true){
+        titleInput.value = '';
+        taskListItemsInput.value = '';
+    };
+};
 
 
 
@@ -134,7 +144,6 @@ function resizeInstance(instance){
 }
 
 allCards = document.querySelectorAll(".card-area-new-card");
-for( var i = 0; i < allCards.length; i++){
+for (var i = 0; i < allCards.length; i++){
   imagesLoaded(allCards[i], resizeInstance);
-}
-}
+}};

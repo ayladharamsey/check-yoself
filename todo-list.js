@@ -29,8 +29,8 @@ class ToDoList {
 }
 
 class Items {
-  constructor(content) {
-    this.content = content;
+  constructor(body) {
+    this.body = body;
     this.taskComplete = false;
     this.id = Date.now();
   }

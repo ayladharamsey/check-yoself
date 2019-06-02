@@ -11,6 +11,42 @@ Pseduocoding
 9. Task-items can be marked complete and their status should be updated to local storage
 10. New Cards can be deleted, which removes the item from the dom as well as local storage
 
-functions i need to write 
-1. a function that acquires the index number of the id i am trying to locate
+
+Overall structure ------
+
+Tasks lists are created of a title and task list items. These lists are considered drafts. Once a draft is published, it then becomes a Todo List. 
+
+
+title (.sidebar-form-input-title) - User types into input whatever they would like the overall To-do Lists' title to be named. 
+	-This value entered for this title also induces an id to be created off of the date.now function. 
+	- when the button 'Make Task List' is clicked, an ID is given to this list title. 
+	- The title name along with the listItems create an object 
+	- the object is then printed to the dom using the fucntion addToDoListItemToDom();
+
+
+listItems(.sidebar-form-input-item) - when you acquire the value of the list items input you then the value for the upcoming list.
+	- listItems are saved into the array temporaryTaskItems.
+temporaryTaskItems- is the array that will be holding a draft list of to-do list items. This is a place that the user would 
+	- listItems populate on the dom as an unordered list underneath the class .sidebar-form-list-items 
+	- the listItems are stored with an associated ID that is created when the user adds a Title for the list and chooses to click the button 'Make Task List'
+	- The title name along with the listItems create an object 
+	- The object combined is saved to an array called temporaryTaskItems
+
+temporaryTaskItems(array) - this array is used to save the drafts of to-do lists that are not saved locally to storage but are printed on the dom
+
+'Make Task List' btn - 
+	-upon click, this button saves this object to the array taskLists giving it an ID based on it's date.now value. 
+		- In order to save the array to the taskLists array, the object must first pass through the saveToStorage function which stringifies the object and turns it into a JSON object. 
+	- upon click, this button appends the new taskList object to the DOM
+		- In order to append this object, we must get the JSON object and then parse it back into it's JS form. 
+		- This was given the variable 'todos'
+		-once appended to the dom as a todoList, the overall card is given an ID so that it can be updated or deleted as needed. 
+		-ToDos are then passed through the 
+	- upon click, this button clears the Input Fields with the clearInputFields(); function which also resets the buttons to disabled.
+
+
+
+
+
+ 
 

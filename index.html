@@ -13,7 +13,7 @@
 	<nav>
 		<h1 class="nav-title">CHECK <span class="nav-title-mid">YO'</span> SELF</h1>
 		<form class="nav-form">
-          <img class="nav-form-search-button" src="images/search.svg">
+          <img class="nav-form-search-btn" src="images/search.svg">
           <input type="text" placeholder="Search" class="nav-form-search-input global-input">
         </form>
 	</nav>
@@ -21,20 +21,20 @@
 		<aside class="sidebar">
 			<form class="sidebar-form">
 				<label for="title-input" class="sidebar-form-task-title">Task Title</label>
-				<input id="title-input" type="text" name="title-input" class="sidebar-form-input global-input">
+				<input id="title-input" type="text" name="title-input" class="sidebar-form-input-title global-input">
 				<ul id="list-items" class="sidebar-form-list-items">
            		</ul>
 				<label for="task-input" class="sidebar-form-task-item">Task Item</label>
 					<div class="sidebar-form-item-container">
-            			<input id="task-input" name="task-input" type="text" class="sidebar-form-input global-input">
-              			<img class="sidebar-form-item-button" src="images/add-plus-svgrepo-com.svg">
+            			<input id="task-input" name="task-input" type="text" class="sidebar-form-input-item global-input">
+              			<input type="button" class="sidebar-form-item-btn" disabled></input>
             		</div>
-            	<input type="button" value="Make Task List" class="sidebar-form-make-task-button global-button">
+            	<input type="button" value="Make Task List" class="sidebar-form-make-task-btn global-btn" disabled>
             	</input>
-           		<input type="button" value="Clear All" class="sidebar-form-clear-all-button global-button">
+           		<input type="button" value="Clear All" class="sidebar-form-clear-all-btn global-btn">
            		</input>
           </form>
-          <button class="sidebar-form-urgency-button global-button" data-urgency="false">Filter by Urgency</button>
+          <button class="sidebar-form-urgency-btn global-btn" data-urgency="false">Filter by Urgency</button>
         </aside>
 		<section class="card-area">
 			<p class="card-area-task-prompt">Please enter a task!!!</p>

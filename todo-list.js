@@ -1,7 +1,7 @@
 class ToDoList {
-	constructor(title, id, tasks, urgent) {
-		this.title = title;
+	constructor(id, title, tasks, urgent) {
 		this.id = id || Date.now();
+		this.title = title;
 		this.taskList = taskItems;
 		this.urgent = urgent || false;
 	}
@@ -22,9 +22,16 @@ class ToDoList {
 
 	}
 
-	updateTask() {
-		// this.completeStatus = !this.completeStatus; 
-		// this.saveToStorage();
-
+	updateTask(index) {
+		this.tasklist[index].taskComplete = !this.tasklist[index].taskComplete
+		this.saveToStorage();
 	}
+}
+
+class Items {
+  constructor(body) {
+    this.body = body;
+    this.taskComplete = false;
+    this.id = Date.now();
+  }
 }

@@ -7,8 +7,8 @@ class ToDoList {
 	}
 
 	saveToStorage() {
-		var stringifyData = JSON.stringify(toDoCards);
-      	localStorage.setItem("todos", stringfyData);
+		var stringifyDataArray = JSON.stringify(todoCards);
+      	localStorage.setItem("todos", stringifyDataArray);
     };
 
 	deleteFromStorage() {
@@ -34,4 +34,5 @@ class Items {
     this.taskComplete = false;
     this.id = Date.now();
   }
+
 }

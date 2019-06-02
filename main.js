@@ -7,9 +7,7 @@ var taskListItemsInput = document.querySelector('.sidebar-form-input-item')
 var taskListItemsArea = document.querySelector('.sidebar-form-list-items')
 var taskLists = [];
 var todoCards = JSON.parse(localStorage.getItem("todos")) || [];
-
-
-
+var clearAllBtn = document.querySelector('.sidebar-form-clear-all-btn')
 
 makeTaskListBtn.addEventListener('onclick', makeToDoList)
 addToDoListItemBtn.addEventListener('onclick', addItemsToTaskListArray)
@@ -17,19 +15,7 @@ titleInput.addEventListener('keyup', enableBtns)
 taskListItemsInput.addEventListener('keyup', enableBtns)
 
 
-function addItemsToTaskListArray(){ //Does this need to be on the todo-list.js?
-	item = new Items (taskListItemsInput.value);
-	taskList.push(item)
-	addToDoListItemsToDom(item);
-};
-
-function makeToDoList(){
-var newToDoListCard = new ToDoList(titleInput.value, taskLists);
-todoCards.push(newToDoListCard);
-appendCard(newToDoListCard);
-};
-
-function enableBtns() {
+function enableBtns(e){ // works
     if (titleInput.value === ''){
         makeTaskListBtn.disabled = true;
     } else {
@@ -48,12 +34,10 @@ function findIndex(card){
 	return taskLists.find(function(item) {
     return item.id == cardId;
 });
-
+}
 
 
 //Functions to for sidebar taskLists -----------------------------
-
-
 
 function addToDoListItemsToDom(item){
 	var newTaskListItem = `
@@ -64,7 +48,7 @@ function addToDoListItemsToDom(item){
 		`
 	taskListItemsArea.insertAdjacentHTML('beforeend', newTaskListItem);
 	taskListItemsInput.value = '';
-}
+};
 
 
 //Functions for turning tasklists into TodoLists ---------------------------
@@ -97,7 +81,7 @@ function appendCard (newTodoCard){
 	cardArea.insertAdjacentHTML('afterbegin', card)
 	taskLists = [];
 	clearInputFields();
-}
+};
 
 function appendTaskListToCard(newTodoCard){
 	// for this array of task list items, i need to take each item and append it to the new card
@@ -109,7 +93,7 @@ function appendTaskListToCard(newTodoCard){
 			<p class = "populate-items-body item">'${item.body}</p>
 		</li>`
 	} return taskIteration;
-}
+};
 
 function clearInputFields(){
 	if(makeTaskListBtn.disabled = true){
@@ -117,6 +101,22 @@ function clearInputFields(){
         taskListItemsInput.value = '';
     };
 };
+function addItemsToTaskListArray(e){	
+	console.log('hey1')						 //Does this need to be on the todo-list.js?
+	item = new Items (taskListItemsInput.value);
+	taskList.push(item)
+	addToDoListItemsToDom(item);
+};
+
+
+function makeToDoList(e){
+	console.log('hey2')
+	e.preventDefault();
+	var newToDoListCard = new ToDoList(titleInput.value, taskLists);
+	todoCards.push(newToDoListCard);
+	appendCard(newToDoListCard);
+};
+
 
 
 
@@ -126,24 +126,27 @@ function resizeGridItem(newCard){
   grid = cardArea[0];
   rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
   rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
-  rowSpan = Math.ceil((item.querySelector('.new-card-content').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
+  rowSpan = Math.ceil((item.querySelector('.body-to-populate').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
     item.style.gridRowEnd = "span "+rowSpan;
 }
 
 function resizeAllGridItems(){
-  for (var i = 0 ; i < allItems.length; i++){
+  for (var i = 0 ; i < taskLists.length; i++){
     resizeGridItem(newCard[i]);
   }
-}
+};
+
+var allCards = document.querySelectorAll(".card-area-new-card");
+	for (var i = 0; i < todoCards.length; i++){
+  	imagesLoaded(todoCards[i], resizeInstance);
+	};
+
 window.onload = resizeAllGridItems();
 window.addEventListener('resize', resizeAllGridItems);
 
+
 function resizeInstance(instance){
 	newCard = instance.elements[0];
-  resizeGridItem(item);
-}
+  	resizeGridItem(item);
+};
 
-allCards = document.querySelectorAll(".card-area-new-card");
-for (var i = 0; i < allCards.length; i++){
-  imagesLoaded(allCards[i], resizeInstance);
-}};

@@ -3,14 +3,16 @@
 /* Global Elements*/
 
 * {
-  box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
+  	box-sizing: border-box;
+  	margin: 0px;
+  	padding: 0px;
 }
+
 html {
 	font-family: 'Open Sans', sans-serif;
 	background-color: #f3f6f7;
 }
+
 .global-input {
 	border-radius: 3px;
 	border: 2px solid #1f1f3d;
@@ -135,6 +137,7 @@ label {
 	margin: 10px;
 
 }
+
 .sidebar-form-item-btn {
 	background-color: #1f1f3d;
 	background-image: url("images/add-plus-svgrepo-com.svg");

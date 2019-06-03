@@ -10,15 +10,18 @@ var taskListItemsInput = document.querySelector('.sidebar-form-input-item')
 var taskListItemsArea = document.querySelector('.sidebar-form-list-items')
 var clearAllBtn = document.querySelector('.sidebar-form-clear-all-btn')
 
-
-window.addEventListener('load', reloadLists);
-window.addEventListener('load', loadLists)
+// window.addEventListener('load', loadLists)
+window.addEventListener('load', reloadCards);
+window.addEventListener('load', loadCards)
 titleInput.addEventListener('keyup', enableBtns)
 taskListItemsInput.addEventListener('keyup', enableBtns)
 makeTaskListBtn.addEventListener('click', makeToDoList)
 addToDoListItemBtn.addEventListener('click', addItemsToTaskListArray)
 taskListItemsArea.addEventListener('click', deleteToDoListItemFromDom)
 clearAllBtn.addEventListener('click', clearDraftTaskList)
+
+
+
 
 function enableBtns(e){ // works
     if (titleInput.value === '' && taskLists.length > 0){
@@ -93,20 +96,28 @@ function clearDraftTaskList(e){
 } 
 
 function reloadCards(){
-  var newCards = [];
-  var oldCards = JSON.parse(localStorage.getItem('todos'));
-  oldList.map(function(todoList) {
-    var newToDoList = new ToDoList(ToDoList.id, ToDoList.title, ToDoList.taskLists, ToDoList.urgent);
-    newList.push(newToDoList);
+  var oldCards = todoCards;
+  var newCards = oldCards.map(function(card) {
+  var card = new ToDoList(card.id, card.title, card.taskLists, card.urgent);
+    return card
   });
-  taskLists = newList;
+
+  todoCards = newCards;
+  loadCards(todoCards)
+
 };
 
-function loadLists(){
-  for(var i = 0; i < taskLists.length; i++) {
-    appendTaskListToCard(taskLists);
+function loadCards(card){ // could be written with the for each array prototype method versus the for loop
+  for(var i = 0; i < todoCards.length; i++) {
+    appendCard(card);
   }; 
 };
+
+// function loadLists(){ // do i even need this function?
+//   for(var i = 0; i < taskLists.length; i++) {
+//     appendTaskListToCard(taskLists);
+//   }; 
+// };
 
 //Functions for turning tasklists into TodoLists ---------------------------
 
@@ -170,21 +181,8 @@ function clearInputFields(){
     };
 };
 
-function reloadLists(){
-  var newList = [];
-  var oldList = JSON.parse(localStorage.getItem('todos'));
-  oldList.map(function(todoList) {
-    var newToDoList = new ToDoList(ToDoList.id, ToDoList.title, ToDoList.taskLists, ToDoList.urgent);
-    newList.push(newToDoList);
-  });
-  taskLists = newList;
-};
 
-function loadLists(){
-  for(var i = 0; i < taskLists.length; i++) {
-    appendTaskListToCard(taskLists);
-  }; 
-};
+
 
 //Masory Grid related functions -------------------------------------------------------
 

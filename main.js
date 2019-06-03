@@ -98,18 +98,22 @@ function clearDraftTaskList(e){
 function reloadCards(){
   var oldCards = todoCards;
   var newCards = oldCards.map(function(card) {
-  var card = new ToDoList(card.id, card.title, card.taskLists, card.urgent);
+  	console.log(card)
+  	var card = new ToDoList(card.id, card.title, card.taskList, card.urgent);
+  	console.log(card);
     return card
   });
 
+
   todoCards = newCards;
+  console.log(todoCards)
   loadCards(todoCards)
 
 };
 
-function loadCards(card){ // could be written with the for each array prototype method versus the for loop
-  for(var i = 0; i < todoCards.length; i++) {
-    appendCard(card);
+function loadCards(cards){ // could be written with the for each array prototype method versus the for loop
+  for(var i = 0; i < cards.length; i++) {
+    appendCard(cards[i]);
   }; 
 };
 

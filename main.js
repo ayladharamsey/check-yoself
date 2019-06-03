@@ -18,9 +18,9 @@ taskListItemsArea.addEventListener('click', deleteToDoListItemFromDom)
 clearAllBtn.addEventListener('click', clearDraftTaskList)
 
 function enableBtns(e){ // works
-    if (titleInput.value === ''){
+    if (titleInput.value === '' && taskLists.length > 0){
         makeTaskListBtn.disabled = true;
-    } else {
+    } else{
         makeTaskListBtn.disabled = false;
     };
 
@@ -84,6 +84,7 @@ function clearDraftTaskList(e){
 	}
 
 	titleInput.value = '';
+	taskListItemsInput.value = '';
 } 
 
 //Functions for turning tasklists into TodoLists ---------------------------

@@ -91,18 +91,49 @@ main {
 
 .card-area-new-card { 
 	background-color: #F9FDFF;
+  	border: 2px solid #c7d3d8;
+  	display: inline-block;
+  	margin-bottom:  0.5rem;
+  	margin-left:  1rem;
+  	margin-top:  0.5rem;
+  	width:  100%;
 }
 
-.new-card-title {
-	font-weight: 800;
-	color: ##1f1f3d;
-	padding: 20px;
-	border-bottom: 2px solid #CDD8DE;
+.new-card-title, 
+.new-card-items-population-area {
+	border-bottom: 1px solid #c7d3d8;
+  	color: #1f1f3d;
+  	font-size: 20px;
+  	font-weight: 400;
+  	margin-left: auto;
+  	margin-right: auto;
+  	padding: 5px; 
+  	width: 96%;
 
 }
 
 .new-card-footer {
 	border-top: 2px solid #CDD8DE
+}
+
+.populate-items-body,
+.task-todo-list-body {
+	display: inline-block;
+}
+
+.new-card-footer-delete-btn,
+.new-card-footer-urgency-btn,
+.task-todo-list-delete-btn,
+.populate-item-delete-btn {
+	width: 25px;
+	height: 25px;
+} 
+
+.new-card-footer {
+	display: flex;
+	flex: space-between;
+
+
 }
 
 
@@ -161,7 +192,6 @@ label {
 .sidebar-form-urgency-btn {
 	margin-top: 30px;
 }
-
 
 
 

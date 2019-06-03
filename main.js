@@ -10,6 +10,9 @@ var taskListItemsInput = document.querySelector('.sidebar-form-input-item')
 var taskListItemsArea = document.querySelector('.sidebar-form-list-items')
 var clearAllBtn = document.querySelector('.sidebar-form-clear-all-btn')
 
+// window.addEventListener('load', loadLists)
+window.addEventListener('load', reloadCards);
+window.addEventListener('load', loadCards)
 titleInput.addEventListener('keyup', enableBtns)
 taskListItemsInput.addEventListener('keyup', enableBtns)
 makeTaskListBtn.addEventListener('click', makeToDoList)
@@ -17,10 +20,13 @@ addToDoListItemBtn.addEventListener('click', addItemsToTaskListArray)
 taskListItemsArea.addEventListener('click', deleteToDoListItemFromDom)
 clearAllBtn.addEventListener('click', clearDraftTaskList)
 
+
+
+
 function enableBtns(e){ // works
-    if (titleInput.value === ''){
+    if (titleInput.value === '' && taskLists.length > 0){
         makeTaskListBtn.disabled = true;
-    } else {
+    } else{
         makeTaskListBtn.disabled = false;
     };
 
@@ -39,6 +45,8 @@ function findCardIndex(card){
     	return item.id == cardId;
 });
 }
+
+
 
 //Functions to for sidebar taskLists -----------------------------
 
@@ -84,7 +92,36 @@ function clearDraftTaskList(e){
 	}
 
 	titleInput.value = '';
+	taskListItemsInput.value = '';
 } 
+
+function reloadCards(){
+  var oldCards = todoCards;
+  var newCards = oldCards.map(function(card) {
+  	console.log(card)
+  	var card = new ToDoList(card.id, card.title, card.taskList, card.urgent);
+  	console.log(card);
+    return card
+  });
+
+
+  todoCards = newCards;
+  console.log(todoCards)
+  loadCards(todoCards)
+
+};
+
+function loadCards(cards){ // could be written with the for each array prototype method versus the for loop
+  for(var i = 0; i < cards.length; i++) {
+    appendCard(cards[i]);
+  }; 
+};
+
+// function loadLists(){ // do i even need this function?
+//   for(var i = 0; i < taskLists.length; i++) {
+//     appendTaskListToCard(taskLists);
+//   }; 
+// };
 
 //Functions for turning tasklists into TodoLists ---------------------------
 
@@ -133,7 +170,7 @@ function appendTaskListToCard(newTodoCard){
 	for (var i = 0; i < taskLists.length; i++){
 		taskIteration+=
 		`<li class="populate-item"> 
-			<img class="populate-item-delete-btn" src="images/delete.svg" alt="Delete task from draft list in sidebar"/>
+			<img class="populate-item-delete-btn" src="images/checkbox.svg" alt="Open circle in order to track progress on whether the task is complete or not"/>
 			<p class = "populate-items-body">${newTodoCard.taskList[i].body}</p>
 		</li>`
 	}
@@ -147,6 +184,8 @@ function clearInputFields(){
         taskListItemsInput.value = '';
     };
 };
+
+
 
 
 //Masory Grid related functions -------------------------------------------------------

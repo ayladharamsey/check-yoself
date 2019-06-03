@@ -20,7 +20,6 @@ html {
 	height: 40px;
 	margin-left: auto;
 	margin-right: auto;
-	outline: none;
 	padding-left: 9px;
 	width: 90%;
 }
@@ -57,27 +56,28 @@ nav {
 .nav-title-mid {
 	color: #FFC30C;
 }
+
 .nav-form {
 	display: flex;
+	align-items: center;
     margin: 2%;
 }
 
 .nav-form-search-btn {
     background-color: #C8D3D9;
-	border-bottom-left-radius: 3px;
-	border-top-left-radius: 3px;
-	border: 2px solid #C8D3D9;
-	cursor: pointer;
-	display: inline-block;
-	height: 40px;
-	padding: 3px;
-	position: absolute;
-	width: 40px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    border: 2px solid #C8D3D9;
+    cursor: pointer;
+    height: 37px;
+    padding: 3px;
+    width: 40px;
 }
 
 .nav-form-search-input {
 	width: 100%;
-	height: 40px;
+    height: 40px;
+    border-left: none;
 }
 
 /* Main Elements*/
@@ -107,18 +107,20 @@ main {
   	font-weight: 400;
   	margin-left: auto;
   	margin-right: auto;
-  	padding: 5px; 
+  	padding: 10px; 
   	width: 96%;
 
 }
 
-.new-card-footer {
-	border-top: 2px solid #CDD8DE
+.task-todo-list,
+.populate-item {
+	display: flex;
 }
 
 .populate-items-body,
 .task-todo-list-body {
-	display: inline-block;
+	align-items: center;
+	margin-top: 7px;
 }
 
 .new-card-footer-delete-btn,
@@ -127,12 +129,20 @@ main {
 .populate-item-delete-btn {
 	width: 25px;
 	height: 25px;
+	margin: 5px;
 } 
 
 .new-card-footer {
 	display: flex;
-	flex: space-between;
+	border-top: 2px solid #CDD8DE
+}
 
+.new-card-footer p {
+	font-size: .6em;
+}
+.new-card-footer-right,
+.new-card-footer-left {
+	margin: 20px;
 
 }
 
@@ -147,6 +157,7 @@ main {
     flex-direction: column;
     width: 33vw;
     height: 100vh;
+    padding: 5px;
 }
 
 .sidebar-form {
@@ -163,25 +174,26 @@ label {
 	margin: 10px;
 }
 
-.sidebar-form-input-title,
-.sidebar-form-input-item {
+.sidebar-form-input-title {
 	margin: 10px;
 
 }
 
+.sidebar-form-input-item {
+	margin: 10px 0px 10px 10px;
+	width: 80%;
+}
+
 .sidebar-form-item-btn {
 	background-color: #1f1f3d;
-	background-image: url("images/add-plus-svgrepo-com.svg");
+	background-image: url("images/plus.svg");
 	border-bottom-right-radius: 3px;
 	border-top-right-radius: 3px;
 	border: 2px solid #1f1f3d;
 	cursor: pointer;
-	display: inline-block;
 	height: 40px;
 	padding: 3px;
-	position: absolute;
 	width: 40px;
-
 
 }
 
@@ -191,6 +203,12 @@ label {
 
 .sidebar-form-urgency-btn {
 	margin-top: 30px;
+}
+
+.sidebar-form-item-container {
+	display: flex;
+	align-items: center;
+
 }
 
 

@@ -107,18 +107,20 @@ main {
   	font-weight: 400;
   	margin-left: auto;
   	margin-right: auto;
-  	padding: 5px; 
+  	padding: 10px; 
   	width: 96%;
 
 }
 
-.new-card-footer {
-	border-top: 2px solid #CDD8DE
+.task-todo-list,
+.populate-item {
+	display: flex;
 }
 
 .populate-items-body,
 .task-todo-list-body {
-	display: inline-block;
+	align-items: center;
+	margin-top: 7px;
 }
 
 .new-card-footer-delete-btn,
@@ -127,12 +129,20 @@ main {
 .populate-item-delete-btn {
 	width: 25px;
 	height: 25px;
+	margin: 5px;
 } 
 
 .new-card-footer {
 	display: flex;
-	flex: space-between;
+	border-top: 2px solid #CDD8DE
+}
 
+.new-card-footer p {
+	font-size: .6em;
+}
+.new-card-footer-right,
+.new-card-footer-left {
+	margin: 20px;
 
 }
 
@@ -181,8 +191,6 @@ label {
 	padding: 3px;
 	position: absolute;
 	width: 40px;
-
-
 }
 
 .sidebar-form-clear-all-btn {

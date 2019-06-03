@@ -166,7 +166,7 @@ function appendTaskListToCard(newTodoCard){
 	for (var i = 0; i < taskLists.length; i++){
 		taskIteration+=
 		`<li class="populate-item"> 
-			<img class="populate-item-delete-btn" src="images/delete.svg" alt="Delete task from draft list in sidebar"/>
+			<img class="populate-item-delete-btn" src="images/checkbox.svg" alt="Open circle in order to track progress on whether the task is complete or not"/>
 			<p class = "populate-items-body">${newTodoCard.taskList[i].body}</p>
 		</li>`
 	}

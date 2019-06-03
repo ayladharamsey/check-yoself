@@ -23,7 +23,7 @@ class ToDoList {
 	}
 
 	updateTask(index) {
-		this.taskLists[index].taskComplete = !this.taskLists[index].taskComplete
+		this.taskList[index].taskComplete = !this.taskList[index].taskComplete
 		this.saveToStorage();
 	}
 }

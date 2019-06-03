@@ -1,4 +1,4 @@
-var taskLists = [];
+var tasks = [];
 var todoCards = JSON.parse(localStorage.getItem("todos")) || [];
 
 var cardArea = document.querySelector('.card-area')
@@ -10,9 +10,7 @@ var taskListItemsInput = document.querySelector('.sidebar-form-input-item')
 var taskListItemsArea = document.querySelector('.sidebar-form-list-items')
 var clearAllBtn = document.querySelector('.sidebar-form-clear-all-btn')
 
-// window.addEventListener('load', loadLists)
-window.addEventListener('load', reloadCards);
-window.addEventListener('load', loadCards)
+window.addEventListener('load', reloadCardsWithData);
 titleInput.addEventListener('keyup', enableBtns)
 taskListItemsInput.addEventListener('keyup', enableBtns)
 makeTaskListBtn.addEventListener('click', makeToDoList)
@@ -24,10 +22,12 @@ clearAllBtn.addEventListener('click', clearDraftTaskList)
 
 
 function enableBtns(e){ // works
-    if (titleInput.value === '' && taskLists.length > 0){
+    if (titleInput.value === '' || tasks.length === 0){
         makeTaskListBtn.disabled = true;
-    } else{
+        clearAllBtn.disabled = true;
+    } else {
         makeTaskListBtn.disabled = false;
+        clearAllBtn.disabled = false;
     };
 
     if (taskListItemsInput.value === ''){
@@ -53,7 +53,7 @@ function findCardIndex(card){
 function findListIndex(item){
 	var cardId = card.dataset.id;
 
-	return taskLists.findIndex(function(item) {
+	return tasks.findIndex(function(item) {
 
     	return item.id == cardId;
 });
@@ -62,9 +62,11 @@ function findListIndex(item){
 function addItemsToTaskListArray(body, taskComplete, id){	
 	item = new Items (taskListItemsInput.value, false, Date.now());
 
-	taskLists.push(item)
+	tasks.push(item)
 
 	addToDoListItemsToDom(item);
+	addToDoListItemBtn.disabled = true;
+	enableBtns();
 };
 
 function deleteToDoListItemFromDom(e){
@@ -84,7 +86,6 @@ function addToDoListItemsToDom(item){
 };
 
 function clearDraftTaskList(e){
-
 	var taskList = document.getElementById('list-items') 
 
 	while (taskList.hasChildNodes()) {   
@@ -95,19 +96,13 @@ function clearDraftTaskList(e){
 	taskListItemsInput.value = '';
 } 
 
-function reloadCards(){
-  var oldCards = todoCards;
-  var newCards = oldCards.map(function(card) {
-  	console.log(card)
-  	var card = new ToDoList(card.id, card.title, card.taskList, card.urgent);
-  	console.log(card);
-    return card
+function reloadCardsWithData(){
+  var newCards = todoCards.map(function(card) {
+	return new ToDoList(card.id, card.title, card.taskList, card.urgent);
   });
 
-
   todoCards = newCards;
-  console.log(todoCards)
-  loadCards(todoCards)
+  loadCards(todoCards);
 
 };
 
@@ -117,21 +112,15 @@ function loadCards(cards){ // could be written with the for each array prototype
   }; 
 };
 
-// function loadLists(){ // do i even need this function?
-//   for(var i = 0; i < taskLists.length; i++) {
-//     appendTaskListToCard(taskLists);
-//   }; 
-// };
 
 //Functions for turning tasklists into TodoLists ---------------------------
 
 function makeToDoList(e){
-	var newToDoListCard = new ToDoList(Date.now(), titleInput.value, taskLists, false);
+	var newToDoListCard = new ToDoList(Date.now(), titleInput.value, tasks, false);
 	todoCards.push(newToDoListCard);
 	appendCard(newToDoListCard);
 	newToDoListCard.saveToStorage();
 	clearDraftTaskList();
-
 };
 
 function appendCard (newToDoListCard){
@@ -160,14 +149,14 @@ function appendCard (newToDoListCard){
 	</article>
 	`
 	cardArea.insertAdjacentHTML('afterbegin', card)
-	taskLists = [];
+	tasks = [];
 	clearInputFields();
 };
 
 function appendTaskListToCard(newTodoCard){
 	// for this array of task list items, i need to take each item and append it to the new card
 	var taskIteration = '';
-	for (var i = 0; i < taskLists.length; i++){
+	for (var i = 0; i < newTodoCard.taskList.length; i++){
 		taskIteration+=
 		`<li class="populate-item"> 
 			<img class="populate-item-delete-btn" src="images/checkbox.svg" alt="Open circle in order to track progress on whether the task is complete or not"/>
@@ -199,8 +188,8 @@ function clearInputFields(){
 // }
 
 // function resizeAllGridItems(){
-//   for (var i = 0 ; i < taskLists.length; i++){
-//     resizeGridItem(newCard[i]);
+//   for (var i = 0 ; i < todoCards.length; i++){
+//     resizeGridItem(todoCards[i]);
 //   }
 // };
 

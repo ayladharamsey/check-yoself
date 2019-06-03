@@ -10,6 +10,9 @@ var taskListItemsInput = document.querySelector('.sidebar-form-input-item')
 var taskListItemsArea = document.querySelector('.sidebar-form-list-items')
 var clearAllBtn = document.querySelector('.sidebar-form-clear-all-btn')
 
+
+window.addEventListener('load', reloadLists);
+window.addEventListener('load', loadLists)
 titleInput.addEventListener('keyup', enableBtns)
 taskListItemsInput.addEventListener('keyup', enableBtns)
 makeTaskListBtn.addEventListener('click', makeToDoList)
@@ -39,6 +42,8 @@ function findCardIndex(card){
     	return item.id == cardId;
 });
 }
+
+
 
 //Functions to for sidebar taskLists -----------------------------
 
@@ -86,6 +91,22 @@ function clearDraftTaskList(e){
 	titleInput.value = '';
 	taskListItemsInput.value = '';
 } 
+
+function reloadCards(){
+  var newCards = [];
+  var oldCards = JSON.parse(localStorage.getItem('todos'));
+  oldList.map(function(todoList) {
+    var newToDoList = new ToDoList(ToDoList.id, ToDoList.title, ToDoList.taskLists, ToDoList.urgent);
+    newList.push(newToDoList);
+  });
+  taskLists = newList;
+};
+
+function loadLists(){
+  for(var i = 0; i < taskLists.length; i++) {
+    appendTaskListToCard(taskLists);
+  }; 
+};
 
 //Functions for turning tasklists into TodoLists ---------------------------
 
@@ -149,6 +170,21 @@ function clearInputFields(){
     };
 };
 
+function reloadLists(){
+  var newList = [];
+  var oldList = JSON.parse(localStorage.getItem('todos'));
+  oldList.map(function(todoList) {
+    var newToDoList = new ToDoList(ToDoList.id, ToDoList.title, ToDoList.taskLists, ToDoList.urgent);
+    newList.push(newToDoList);
+  });
+  taskLists = newList;
+};
+
+function loadLists(){
+  for(var i = 0; i < taskLists.length; i++) {
+    appendTaskListToCard(taskLists);
+  }; 
+};
 
 //Masory Grid related functions -------------------------------------------------------
 

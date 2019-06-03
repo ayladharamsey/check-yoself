@@ -31,19 +31,31 @@ function enableBtns(e){ // works
     };
 };
 
-function findIndex(card){
+function findCardIndex(card){
 	var cardId = card.dataset.id;
-	return taskLists.find(function(item) {
-    return item.id == cardId;
+
+	return todoCards.findIndex(function(item) {
+
+    	return item.id == cardId;
 });
 }
 
-
 //Functions to for sidebar taskLists -----------------------------
+
+function findListIndex(item){
+	var cardId = card.dataset.id;
+
+	return taskLists.findIndex(function(item) {
+
+    	return item.id == cardId;
+});
+}
 
 function addItemsToTaskListArray(body, taskComplete, id){	
 	item = new Items (taskListItemsInput.value, false, Date.now());
+
 	taskLists.push(item)
+
 	addToDoListItemsToDom(item);
 };
 
@@ -94,7 +106,7 @@ function appendCard (newToDoListCard){
 			</header>
 			<section class="new-card-items-population-area">
 				<ul class= "body-to-populate">
-				${appendTaskListToCard(newToDoListCard.tasks)}
+				${appendTaskListToCard(newToDoListCard)}
 				</ul>
 				<footer class="new-card-footer">	
 					<div class="new-card-footer-left">
@@ -116,16 +128,16 @@ function appendCard (newToDoListCard){
 };
 
 function appendTaskListToCard(newTodoCard){
-	var todoCards = JSON.parse(localStorage.getItem("todos")) 
 	// for this array of task list items, i need to take each item and append it to the new card
 	var taskIteration = '';
 	for (var i = 0; i < taskLists.length; i++){
 		taskIteration+=
-		`<li class="populate-item item" data-id =${item.id}> 
-			<img class="populate-item-delete-btn item" src="images/delete.svg" alt="Delete task from draft list in sidebar"/>
-			<p class = "populate-items-body item">${item.body}</p>
+		`<li class="populate-item"> 
+			<img class="populate-item-delete-btn" src="images/delete.svg" alt="Delete task from draft list in sidebar"/>
+			<p class = "populate-items-body">${newTodoCard.taskList[i].body}</p>
 		</li>`
-	}console.log(taskIteration) 
+	}
+
 	return taskIteration;
 };
 

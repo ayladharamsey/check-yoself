@@ -53,25 +53,54 @@ function contentHandler(e) {
 }
 
 function toggleCheckedItem(e) {
-	// if (e.target.className === 'check-off-item') {
-		var targetList = findListIndex(e);
-		tasks.updateTask(targetList);
-		checkItem(e, targetList);
-		targetList.saveToStorage(tasks);
+	if (e.target.classList.contains('populate-item-delete-btn')) {
+		var parentId = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.id
+		var parentCardIndex= findListIndex(parentId);
+		var taskIndex = findTaskIndex(parentCardIndex, event.target.dataset.id);
+		todoCards[parentCardIndex].updateTask(taskIndex);
 		toggleItalics(e);
+		checkItem(e, taskIndex);
+		// targetList.saveToStorage(tasks);
 	}	
-// }
+}
+
+function findTaskIndex(parentIndex, taskId){
+
+	return todoCards[parentIndex].taskList.findIndex(function(task){
+
+		return task.id === parseInt(taskId)
+	})
+}
+
+function checkItem(e, taskIndex) {
+
+	todoCards[taskIndex].taskList.forEach(function(task) {
+
+		if (task.id === e.target.classList.contains('check-off-item').dataset.id) {
+
+		var checkedImage = taskIndex.taskComplete ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
+		e.target.setAttribute('src', checkedImage);
+
+		}
+
+	});
+
+}
+
+function toggleItalics(e) {
+	var classList = e.target.closest('li').classList;
+	classList.contains('italic') ? classList.remove('italic') : classList.add('italic');
+
+}
 
 
 //Functions to for sidebar taskLists -----------------------------
 
-function findListIndex(item) {
+function findListIndex(parentId) {
 
-	var cardId = item.dataset;
+	return todoCards.findIndex(function(card) {
 
-	return tasks.findIndex(function(item) {
-
-    	return item.id == cardId;
+    	return card.id === parseInt(parentId);
 });
 }
 
@@ -218,6 +247,11 @@ function clearInputFields() {
     };
 };
 
+function removeCardFromDom(e){
+
+	e.target.closest('article').remove()
+};
+
 
 function targetDeletingCard(e) {
 	if (e.target.classList.contains('new-card-footer-delete-btn')) {
@@ -249,21 +283,4 @@ function deleteCard(e) {
 	
 };
 
-
-//check off list items ------------------------------
-
-function checkItem(e, todoList) {
-	todoList.taskList.forEach(function(item) {
-		if (item.id == e.target.dataset.id) {
-		var checkedImage = item.taskComplete ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
-		e.target.setAttribute('src', checkedImage);
-		}
-	});
-}
-
-
-function toggleItalics(e) {
-	var classList = e.target.closest('li').classList;
-	classList.contains('italic') ? classList.remove('italic') : classList.add('italic');
-}
 }

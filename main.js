@@ -17,11 +17,12 @@ makeTaskListBtn.addEventListener('click', makeToDoList)
 addToDoListItemBtn.addEventListener('click', addItemsToTaskListArray)
 taskListItemsArea.addEventListener('click', deleteToDoListItemFromDom)
 clearAllBtn.addEventListener('click', clearDraftTaskList)
+cardArea.addEventListener('click', contentHandler)
 
 
 
+function enableBtns(e){ 
 
-function enableBtns(e){ // works
     if (titleInput.value === '' || tasks.length === 0){
         makeTaskListBtn.disabled = true;
         clearAllBtn.disabled = true;
@@ -37,13 +38,10 @@ function enableBtns(e){ // works
     };
 };
 
-function findCardIndex(card){
-	var cardId = card.dataset.id;
+function contentHandler(e){
 
-	return todoCards.findIndex(function(item) {
-
-    	return item.id == cardId;
-});
+	targetDeletingCard(e);
+	deleteCard(e)
 }
 
 
@@ -60,6 +58,7 @@ function findListIndex(item){
 }
 
 function addItemsToTaskListArray(body, taskComplete, id){	
+
 	item = new Items (taskListItemsInput.value, false, Date.now());
 
 	tasks.push(item)
@@ -70,6 +69,7 @@ function addItemsToTaskListArray(body, taskComplete, id){
 };
 
 function deleteToDoListItemFromDom(e){
+
 	e.target.closest('li').remove();
 }
 
@@ -86,6 +86,7 @@ function addToDoListItemsToDom(item){
 };
 
 function clearDraftTaskList(e){
+
 	var taskList = document.getElementById('list-items') 
 
 	while (taskList.hasChildNodes()) {   
@@ -97,6 +98,7 @@ function clearDraftTaskList(e){
 } 
 
 function reloadCardsWithData(){
+
   var newCards = todoCards.map(function(card) {
 	return new ToDoList(card.id, card.title, card.taskList, card.urgent);
   });
@@ -106,8 +108,9 @@ function reloadCardsWithData(){
 
 };
 
-function loadCards(cards){ // could be written with the for each array prototype method versus the for loop
-  for(var i = 0; i < cards.length; i++) {
+function loadCards(cards){ 
+
+  for(var i = 0; i < cards.length; i++){
     appendCard(cards[i]);
   }; 
 };
@@ -116,6 +119,7 @@ function loadCards(cards){ // could be written with the for each array prototype
 //Functions for turning tasklists into TodoLists ---------------------------
 
 function makeToDoList(e){
+
 	var newToDoListCard = new ToDoList(Date.now(), titleInput.value, tasks, false);
 	todoCards.push(newToDoListCard);
 	appendCard(newToDoListCard);
@@ -124,6 +128,7 @@ function makeToDoList(e){
 };
 
 function appendCard (newToDoListCard){
+
 	var card = `
 	<article class="card-area-new-card" data-id=${newToDoListCard.id}> 
 		<div class ="content">
@@ -154,7 +159,7 @@ function appendCard (newToDoListCard){
 };
 
 function appendTaskListToCard(newTodoCard){
-	// for this array of task list items, i need to take each item and append it to the new card
+
 	var taskIteration = '';
 	for (var i = 0; i < newTodoCard.taskList.length; i++){
 		taskIteration+=
@@ -168,42 +173,43 @@ function appendTaskListToCard(newTodoCard){
 };
 
 function clearInputFields(){
+
 	if(makeTaskListBtn.disabled = true){
         titleInput.value = '';
         taskListItemsInput.value = '';
     };
 };
 
+function targetDeletingCard(e){
+
+	var targetCard = e.target.closest('.card-area-new-card');
+ 	var indexOfTargetCard = findCardIndex(targetCard);
+ 	removeCardFromDom(e);
+ 	
+	}
 
 
+function findCardIndex(targetCard){
+ 	
+ 	var cardId = targetCard.dataset;
+	return index = todoCards.findIndex(function(cardId) {
 
-//Masory Grid related functions -------------------------------------------------------
+    	return cardId.id; 
+}); 
+};
 
-// function resizeGridItem(newCard){
-//   grid = cardArea[0];
-//   rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-//   rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
-//   rowSpan = Math.ceil((item.querySelector('.body-to-populate').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
-//     item.style.gridRowEnd = "span "+rowSpan;
-// }
+function deleteCard(e){ 
 
-// function resizeAllGridItems(){
-//   for (var i = 0 ; i < todoCards.length; i++){
-//     resizeGridItem(todoCards[i]);
-//   }
-// };
+	var index = findCardIndex(e)
+	todoCards[index].deleteFromStorage(index)
+	todoCards.splice(index, 1);
+	;
+	
+};
 
-// var allCards = document.querySelectorAll(".card-area-new-card");
-// 	for (var i = 0; i < todoCards.length; i++){
-//   	imagesLoaded(todoCards[i], resizeInstance);
-// 	};
+function removeCardFromDom(e){
 
-// window.onload = resizeAllGridItems();
-// window.addEventListener('resize', resizeAllGridItems);
+	e.target.closest('article').remove()
+};
 
-
-// function resizeInstance(instance){
-// 	newCard = instance.elements[0];
-//   	resizeGridItem(item);
-// };
 

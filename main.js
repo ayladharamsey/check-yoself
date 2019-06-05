@@ -252,8 +252,6 @@ function deleteCard(e) {
 
 //check off list items ------------------------------
 
-
-
 function checkItem(e, todoList) {
 	todoList.taskList.forEach(function(item) {
 		if (item.id == e.target.dataset.id) {

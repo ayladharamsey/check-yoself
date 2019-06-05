@@ -175,14 +175,13 @@ label {
 	margin: 10px;
 }
 
-.sidebar-form-input-title {
-	margin: 10px;
-
-}
 
 .sidebar-form-input-item {
-	margin: 10px 0px 10px 10px;
-	width: 80%;
+	border-bottom-right-radius: 0px;
+	border-right: 0px;
+  	border-top-right-radius: 0px;
+  	width: 82%;
+  	margin-right: 0px;
 }
 
 .sidebar-form-item-btn {
@@ -195,6 +194,8 @@ label {
 	height: 40px;
 	padding: 3px;
 	width: 40px;
+	margin-right: 5%;
+
 
 }
 

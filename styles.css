@@ -9,8 +9,8 @@
 }
 
 html {
-	font-family: 'Open Sans', sans-serif;
 	background-color: #f3f6f7;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .global-input {
@@ -36,15 +36,31 @@ html {
     width: 90%;
 }
 
+body{
+	display: grid;
+	height: max-content;
+	grid-template: 
+		"header header header" 75px
+		"side main main" 50%
+		"side main main" 50%/ 1fr 1fr 1fr;
+	min-height: 100vh;
+}
+
+.italic {
+	color: #3C6577;
+	font-style: italic;
+}
+
 /* Nav Elements*/
 nav {
 	background-color: #1F1F3D;
 	color: #FFFFFF;
-	display: flex;
+	display: grid;
 	font-size: 25px;
 	font-weight: 800;
-	height: 10vh;
-	justify-content: space-between;
+	grid-area: header;
+	grid-template-columns: 55% 15% 1fr;
+	height: 100%;
 }
 
 .nav-title {
@@ -58,9 +74,9 @@ nav {
 }
 
 .nav-form {
-	align-items: center;
 	display: flex;
-    margin: 2%;
+	grid-column: 3/4;
+	justify-content: center;
 }
 
 .nav-form-search-btn {
@@ -75,20 +91,22 @@ nav {
 }
 
 .nav-form-search-input {
-	width: 100%;
-    border-left: none;
+	border-left: none;
     height: 40px;
+	width: 100%;   
 }
 
-/* Main Elements*/
+/* css columns on card area*/
 
-main {
-	display: grid;
-  	grid-auto-rows: 20px;
-  	grid-gap: 10px;
-  	grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+.card-area{
+	background-color: #F3F6F7;
+	column-gap: 10px;
+	columns: 2 235px;
+	grid-area: main;
+	height: max-content;
+	min-height: 100%;
+	padding: 20px;
 }
-
 
 .card-area-new-card { 
 	background-color: #F9FDFF;
@@ -154,7 +172,9 @@ main {
     border-right: 1px solid black;
     display: flex;
     flex-direction: column;
+    grid-area: side;
     height: 100vh;
+	min-width: 250px;
     padding: 5px;
     width: 33vw;
 }

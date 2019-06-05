@@ -47,15 +47,27 @@ function enableBtns(e) {
 
 function contentHandler(e) {
 
+	toggleCheckedItem(e);
 	targetDeletingCard(e);
-	deleteCard(e)
+	deleteCard(e);
 }
+
+function toggleCheckedItem(e) {
+	// if (e.target.className === 'check-off-item') {
+		var targetList = findListIndex(e);
+		tasks.updateTask(targetList);
+		checkItem(e, targetList);
+		targetList.saveToStorage(tasks);
+		toggleItalics(e);
+	}	
+// }
+
 
 //Functions to for sidebar taskLists -----------------------------
 
 function findListIndex(item) {
 
-	var cardId = card.dataset.id;
+	var cardId = item.dataset;
 
 	return tasks.findIndex(function(item) {
 
@@ -84,8 +96,8 @@ function deleteToDoListItemFromDom(e) {
 function addToDoListItemsToDom(item) {
 
 	var newTaskListItem = `
-		<li class="task-todo-list item" data-id =${item.id}> 
-			<img class="task-todo-list-delete-btn item" src="images/delete.svg" alt="Delete task from draft list on sidebar"/>
+		<li class="task-todo-list" data-id =${item.id}> 
+			<img class="task-todo-list-delete-btn" src="images/delete.svg" alt="Delete task from draft list on sidebar"/>
 			<p class = "task-todo-list-body item">${item.body}</p>
 		</li>	
 		`
@@ -180,10 +192,14 @@ function appendTaskListToCard(newTodoCard) {
 
 	for (var i = 0; i < newTodoCard.taskList.length; i++){
 
+		var checkedImage = newTodoCard.taskList[i].checked ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
+		var italic = newTodoCard.taskList[i].checked ? 'italic' : ''
+
 		taskIteration+=
 
-		`<li class="populate-item"> 
-			<img class="populate-item-delete-btn" src="images/checkbox.svg" alt="Open circle in order to track progress on whether the task is complete or not"/>
+
+		`<li class="populate-item check-off-item ${italic}"> 
+			<img class="populate-item-delete-btn" src="${checkedImage}" class="check-off-item" id="check-off-item" data-id=${newTodoCard.taskList[i].id} alt="Open circle in order to track progress on whether the task is complete or not"/>
 			<p class = "populate-items-body">${newTodoCard.taskList[i].body}</p>
 		</li>`
 	}
@@ -204,12 +220,13 @@ function clearInputFields() {
 
 
 function targetDeletingCard(e) {
-
+	if (e.target.classList.contains('new-card-footer-delete-btn')) {
 	var targetCard = e.target.closest('.card-area-new-card');
  	var indexOfTargetCard = findCardIndex(targetCard);
  	removeCardFromDom(e);
- 	
 	}
+
+}
 
 
 function findCardIndex(targetCard) {
@@ -224,7 +241,7 @@ function findCardIndex(targetCard) {
 
 
 function deleteCard(e) { 
-
+	if (e.target.classList.contains('new-card-footer-delete-btn')) {
 	var index = findCardIndex(e)
 	todoCards[index].deleteFromStorage(index)
 	todoCards.splice(index, 1);
@@ -233,9 +250,22 @@ function deleteCard(e) {
 };
 
 
-function removeCardFromDom(e) {
-
-	e.target.closest('article').remove()
-};
+//check off list items ------------------------------
 
 
+
+function checkItem(e, todoList) {
+	todoList.taskList.forEach(function(item) {
+		if (item.id == e.target.dataset.id) {
+		var checkedImage = item.taskComplete ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
+		e.target.setAttribute('src', checkedImage);
+		}
+	});
+}
+
+
+function toggleItalics(e) {
+	var classList = e.target.closest('li').classList;
+	classList.contains('italic') ? classList.remove('italic') : classList.add('italic');
+}
+}

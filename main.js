@@ -21,24 +21,32 @@ cardArea.addEventListener('click', contentHandler)
 
 
 
-function enableBtns(e){ 
+function enableBtns(e) { 
 
     if (titleInput.value === '' || tasks.length === 0){
+
         makeTaskListBtn.disabled = true;
         clearAllBtn.disabled = true;
+
     } else {
+
         makeTaskListBtn.disabled = false;
         clearAllBtn.disabled = false;
+
     };
 
     if (taskListItemsInput.value === ''){
+
         addToDoListItemBtn.disabled = true;
+
     } else {
+
         addToDoListItemBtn.disabled = false;
     };
 };
 
-function contentHandler(e){
+
+function contentHandler(e) {
 
 	targetDeletingCard(e);
 	deleteCard(e)
@@ -48,7 +56,8 @@ function contentHandler(e){
 
 //Functions to for sidebar taskLists -----------------------------
 
-function findListIndex(item){
+function findListIndex(item) {
+
 	var cardId = card.dataset.id;
 
 	return tasks.findIndex(function(item) {
@@ -57,23 +66,25 @@ function findListIndex(item){
 });
 }
 
-function addItemsToTaskListArray(body, taskComplete, id){	
+
+function addItemsToTaskListArray(body, taskComplete, id) {	
 
 	item = new Items (taskListItemsInput.value, false, Date.now());
 
 	tasks.push(item)
-
 	addToDoListItemsToDom(item);
 	addToDoListItemBtn.disabled = true;
 	enableBtns();
 };
 
-function deleteToDoListItemFromDom(e){
+
+function deleteToDoListItemFromDom(e) {
 
 	e.target.closest('li').remove();
 }
 
-function addToDoListItemsToDom(item){
+
+function addToDoListItemsToDom(item) {
 
 	var newTaskListItem = `
 		<li class="task-todo-list item" data-id =${item.id}> 
@@ -81,11 +92,13 @@ function addToDoListItemsToDom(item){
 			<p class = "task-todo-list-body item">${item.body}</p>
 		</li>	
 		`
+
 	taskListItemsArea.insertAdjacentHTML('beforeend', newTaskListItem);
 	taskListItemsInput.value = '';
 };
 
-function clearDraftTaskList(e){
+
+function clearDraftTaskList(e) {
 
 	var taskList = document.getElementById('list-items') 
 
@@ -97,7 +110,8 @@ function clearDraftTaskList(e){
 	taskListItemsInput.value = '';
 } 
 
-function reloadCardsWithData(){
+
+function reloadCardsWithData() {
 
   var newCards = todoCards.map(function(card) {
 	return new ToDoList(card.id, card.title, card.taskList, card.urgent);
@@ -108,7 +122,8 @@ function reloadCardsWithData(){
 
 };
 
-function loadCards(cards){ 
+
+function loadCards(cards) { 
 
   for(var i = 0; i < cards.length; i++){
     appendCard(cards[i]);
@@ -118,19 +133,22 @@ function loadCards(cards){
 
 //Functions for turning tasklists into TodoLists ---------------------------
 
-function makeToDoList(e){
+function makeToDoList(e) {
 
 	var newToDoListCard = new ToDoList(Date.now(), titleInput.value, tasks, false);
+
 	todoCards.push(newToDoListCard);
 	appendCard(newToDoListCard);
 	newToDoListCard.saveToStorage();
 	clearDraftTaskList();
 };
 
-function appendCard (newToDoListCard){
 
-	var card = `
-	<article class="card-area-new-card" data-id=${newToDoListCard.id}> 
+function appendCard (newToDoListCard) {
+
+	var card =
+
+	`<article class="card-area-new-card" data-id=${newToDoListCard.id}> 
 		<div class ="content">
 			<header class="new-card-header">
 				<h2 class="new-card-title">${newToDoListCard.title}</h2>
@@ -151,18 +169,22 @@ function appendCard (newToDoListCard){
 				</footer>
 			</section>
 		</div>	
-	</article>
-	`
+	</article>`
+	
 	cardArea.insertAdjacentHTML('afterbegin', card)
 	tasks = [];
 	clearInputFields();
 };
 
-function appendTaskListToCard(newTodoCard){
+
+function appendTaskListToCard(newTodoCard) {
 
 	var taskIteration = '';
+
 	for (var i = 0; i < newTodoCard.taskList.length; i++){
+
 		taskIteration+=
+
 		`<li class="populate-item"> 
 			<img class="populate-item-delete-btn" src="images/checkbox.svg" alt="Open circle in order to track progress on whether the task is complete or not"/>
 			<p class = "populate-items-body">${newTodoCard.taskList[i].body}</p>
@@ -172,15 +194,19 @@ function appendTaskListToCard(newTodoCard){
 	return taskIteration;
 };
 
-function clearInputFields(){
+
+function clearInputFields() {
 
 	if(makeTaskListBtn.disabled = true){
+
         titleInput.value = '';
         taskListItemsInput.value = '';
+
     };
 };
 
-function targetDeletingCard(e){
+
+function targetDeletingCard(e) {
 
 	var targetCard = e.target.closest('.card-area-new-card');
  	var indexOfTargetCard = findCardIndex(targetCard);
@@ -189,16 +215,18 @@ function targetDeletingCard(e){
 	}
 
 
-function findCardIndex(targetCard){
+function findCardIndex(targetCard) {
  	
  	var cardId = targetCard.dataset;
+
 	return index = todoCards.findIndex(function(cardId) {
 
     	return cardId.id; 
 }); 
 };
 
-function deleteCard(e){ 
+
+function deleteCard(e) { 
 
 	var index = findCardIndex(e)
 	todoCards[index].deleteFromStorage(index)
@@ -207,7 +235,8 @@ function deleteCard(e){
 	
 };
 
-function removeCardFromDom(e){
+
+function removeCardFromDom(e) {
 
 	e.target.closest('article').remove()
 };

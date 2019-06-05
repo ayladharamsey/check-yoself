@@ -11,8 +11,8 @@ class ToDoList {
       	localStorage.setItem("todos", stringifyDataArray);
     };
 
-	deleteFromStorage() {
-		toDoCards.splice(index, 1);
+	deleteFromStorage(index) {
+		todoCards.splice(index, 1);
 		this.saveToStorage();
 	}
 
@@ -29,10 +29,10 @@ class ToDoList {
 }
 
 class Items {
-  constructor(body) {
+  constructor(body, id) {
     this.body = body;
     this.taskComplete = false;
-    this.id = Date.now();
+    this.id = id || Date.now();
   }
 
 }

@@ -36,15 +36,26 @@ html {
     width: 90%;
 }
 
+body{
+	display: grid;
+	grid-template: 
+		"header header header" 75px
+		"side main main" 50%
+		"side main main" 50%/ 1fr 1fr 1fr;
+	min-height: 100vh;
+	height: max-content;
+}
+
 /* Nav Elements*/
 nav {
 	background-color: #1F1F3D;
 	color: #FFFFFF;
-	display: flex;
 	font-size: 25px;
 	font-weight: 800;
-	height: 10vh;
-	justify-content: space-between;
+	height: 100%;
+	display: grid;
+	grid-area: header;
+	grid-template-columns: 55% 15% 1fr;
 }
 
 .nav-title {
@@ -58,9 +69,9 @@ nav {
 }
 
 .nav-form {
-	align-items: center;
+	grid-column: 3/4;
 	display: flex;
-    margin: 2%;
+	justify-content: center;
 }
 
 .nav-form-search-btn {
@@ -80,15 +91,17 @@ nav {
     height: 40px;
 }
 
-/* Main Elements*/
+/* css columns on card area*/
 
-main {
-	display: grid;
-  	grid-auto-rows: 20px;
-  	grid-gap: 10px;
-  	grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+.card-area{
+	grid-area: main;
+	background-color: #F3F6F7;
+	padding: 20px;
+	min-height: 100%;
+	height: max-content;
+	columns: 2 235px;
+	column-gap: 10px;
 }
-
 
 .card-area-new-card { 
 	background-color: #F9FDFF;
@@ -157,6 +170,8 @@ main {
     height: 100vh;
     padding: 5px;
     width: 33vw;
+    grid-area: side;
+	min-width: 250px;
 }
 
 .sidebar-form {

@@ -239,3 +239,7 @@ function removeCardFromDom(e) {
 };
 
 
+//check off list items ------------------------------
+
+
+

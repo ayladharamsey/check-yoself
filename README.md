@@ -1,9 +1,9 @@
 # check-yoself
 
-##Author
+## Author
 Ayla Dharamsey, 1904 FE Turing School of Software Design
 
-##Project Overview
+## Project Overview
 The Check Yo' Self project is designed to implement JavaScript principles taught during the first five weeks at the Turing School. 
 The project builds on the applications of JavaScript to provide a dynamic, functional website that can be used to store ideas, 
 that persists upon a refresh of the page, and that can be deleted from localStorage. 

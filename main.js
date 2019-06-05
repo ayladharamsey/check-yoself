@@ -20,7 +20,6 @@ clearAllBtn.addEventListener('click', clearDraftTaskList)
 cardArea.addEventListener('click', contentHandler)
 
 
-
 function enableBtns(e) { 
 
     if (titleInput.value === '' || tasks.length === 0){
@@ -51,8 +50,6 @@ function contentHandler(e) {
 	targetDeletingCard(e);
 	deleteCard(e)
 }
-
-
 
 //Functions to for sidebar taskLists -----------------------------
 

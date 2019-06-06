@@ -53,14 +53,17 @@ function contentHandler(e) {
 }
 
 function toggleCheckedItem(e) {
+
 	if (e.target.classList.contains('populate-item-delete-btn')) {
+
 		var parentId = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.id
 		var parentCardIndex= findListIndex(parentId);
 		var taskIndex = findTaskIndex(parentCardIndex, event.target.dataset.id);
+
 		todoCards[parentCardIndex].updateTask(taskIndex);
 		toggleItalics(e);
-		checkItem(e, taskIndex);
-		// targetList.saveToStorage(tasks);
+		checkItem(e, taskIndex, parentCardIndex);
+
 	}	
 }
 
@@ -72,13 +75,14 @@ function findTaskIndex(parentIndex, taskId){
 	})
 }
 
-function checkItem(e, taskIndex) {
+function checkItem(e, taskIndex, parentIndex) {
 
 	todoCards[taskIndex].taskList.forEach(function(task) {
 
 		if (task.id === e.target.classList.contains('check-off-item').dataset.id) {
 
-		var checkedImage = taskIndex.taskComplete ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
+		var checkedImage = todoCards[parentIndex].taskList[taskIndex].taskComplete ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
+		
 		e.target.setAttribute('src', checkedImage);
 
 		}
@@ -88,7 +92,9 @@ function checkItem(e, taskIndex) {
 }
 
 function toggleItalics(e) {
+
 	var classList = e.target.closest('li').classList;
+
 	classList.contains('italic') ? classList.remove('italic') : classList.add('italic');
 
 }
@@ -110,6 +116,7 @@ function addItemsToTaskListArray(body, taskComplete, id) {
 	item = new Items (taskListItemsInput.value, false, Date.now());
 
 	tasks.push(item)
+
 	addToDoListItemsToDom(item);
 	addToDoListItemBtn.disabled = true;
 	enableBtns();
@@ -141,7 +148,9 @@ function clearDraftTaskList(e) {
 	var taskList = document.getElementById('list-items') 
 
 	while (taskList.hasChildNodes()) {   
+
 	  taskList.removeChild(taskList.firstChild);
+
 	}
 
 	titleInput.value = '';
@@ -151,22 +160,26 @@ function clearDraftTaskList(e) {
 
 function reloadCardsWithData() {
 
-  var newCards = todoCards.map(function(card) {
-	return new ToDoList(card.id, card.title, card.taskList, card.urgent);
-  });
+	var newCards = todoCards.map(function(card) {
 
-  todoCards = newCards;
-  loadCards(todoCards);
+		return new ToDoList(card.id, card.title, card.taskList, card.urgent);
+  	});
+
+  	todoCards = newCards;
+  	loadCards(todoCards);
+
+
 
 };
 
 
 function loadCards(cards) { 
 
-  for(var i = 0; i < cards.length; i++){
-    appendCard(cards[i]);
-  }; 
-};
+  	for(var i = 0; i < cards.length; i++){
+  		
+    	appendCard(cards[i]);
+  		}; 
+	};
 
 
 //Functions for turning tasklists into TodoLists ---------------------------
@@ -226,7 +239,6 @@ function appendTaskListToCard(newTodoCard) {
 
 		taskIteration+=
 
-
 		`<li class="populate-item check-off-item ${italic}"> 
 			<img class="populate-item-delete-btn" src="${checkedImage}" class="check-off-item" id="check-off-item" data-id=${newTodoCard.taskList[i].id} alt="Open circle in order to track progress on whether the task is complete or not"/>
 			<p class = "populate-items-body">${newTodoCard.taskList[i].body}</p>
@@ -254,13 +266,17 @@ function removeCardFromDom(e){
 
 
 function targetDeletingCard(e) {
+
 	if (e.target.classList.contains('new-card-footer-delete-btn')) {
+
 	var targetCard = e.target.closest('.card-area-new-card');
  	var indexOfTargetCard = findCardIndex(targetCard);
+
  	removeCardFromDom(e);
+
 	}
 
-}
+};
 
 
 function findCardIndex(targetCard) {
@@ -275,11 +291,13 @@ function findCardIndex(targetCard) {
 
 
 function deleteCard(e) { 
+
 	if (e.target.classList.contains('new-card-footer-delete-btn')) {
+
 	var index = findCardIndex(e)
+
 	todoCards[index].deleteFromStorage(index)
 	todoCards.splice(index, 1);
-	;
 	
 };
 

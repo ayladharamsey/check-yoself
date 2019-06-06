@@ -60,9 +60,10 @@ function toggleCheckedItem(e) {
 		var parentCardIndex= findListIndex(parentId);
 		var taskIndex = findTaskIndex(parentCardIndex, event.target.dataset.id);
 
+		checkItem(e, taskIndex, parentCardIndex);
 		todoCards[parentCardIndex].updateTask(taskIndex);
 		toggleItalics(e);
-		checkItem(e, taskIndex, parentCardIndex);
+		todoCards[parentCardIndex].saveToStorage(taskIndex)
 
 	}	
 }

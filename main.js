@@ -77,17 +77,17 @@ function findTaskIndex(parentIndex, taskId){
 
 function checkItem(e, taskIndex, parentIndex) {
 
-	todoCards[taskIndex].taskList.forEach(function(task) {
+		for (var i = 0; i < todoCards[parentIndex].taskList.length; i++){
 
-		if (task.id === e.target.classList.contains('check-off-item').dataset.id) {
+			if(todoCards[parentIndex].taskList[i].id === parseInt(e.target.dataset.id)) {
 
-		var checkedImage = todoCards[parentIndex].taskList[taskIndex].taskComplete ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
+			var checkedImage = todoCards[parentIndex].taskList[taskIndex].taskComplete ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
 		
-		e.target.setAttribute('src', checkedImage);
+			e.target.setAttribute('src', checkedImage);
 
 		}
 
-	});
+	};
 
 }
 
@@ -176,7 +176,7 @@ function reloadCardsWithData() {
 function loadCards(cards) { 
 
   	for(var i = 0; i < cards.length; i++){
-  		
+
     	appendCard(cards[i]);
   		}; 
 	};
